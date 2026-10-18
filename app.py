@@ -14,13 +14,18 @@ def home():
             # Mengambil input jam kerja dari form HTML
             work_hours = float(request.form['work_hours'])
             
-            # Perhitungan Regresi Linear Sederhana langsung di server
-            pred_val = (3.59 * work_hours) + 10.5
+            # Rumus Regresi Linear yang proporsional
+            # Misal: 20 jam kerja -> skor sekitar 25 (Rendah/Aman)
+            # 50 jam kerja -> skor sekitar 73 (Tinggi/Bahaya)
+            pred_val = (1.6 * work_hours) - 7.0
+            if pred_val < 0:
+                pred_val = 5.0  # Batas minimal skor
+            
             score = round(float(pred_val), 2)
             
             prediction_text = f"Estimasi Skor Burnout: {score}"
             
-            # Kategori status kesehatan mental
+            # Kategori status kesehatan mental yang proporsional
             if score < 40:
                 status_badge = "Rendah (Aman)"
                 analysis_text = "Jam kerja Anda masih dalam batas wajar. Pertahankan keseimbangan hidup dan kerja yang baik."
