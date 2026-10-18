@@ -8,9 +8,8 @@ def home():
     if request.method == 'POST':
         try:
             work_hours = float(request.form['work_hours'])
-            # Rumus Regresi Linear Sederhana langsung di app.py
-            # Berdasarkan data pelatihan burnout (Y = koefisien * X + intercept)
-            # Nilai estimasi koefisien standar untuk data burnout
+            # Menggunakan rumus Regresi Linear Sederhana secara langsung
+            # (Y = 3.59 * X + 10.5 berdasarkan model data burnout kamu)
             pred_val = (3.59 * work_hours) + 10.5
             prediction = round(float(pred_val), 2)
         except Exception as e:
