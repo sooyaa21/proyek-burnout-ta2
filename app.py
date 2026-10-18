@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request
 
-app = Flask(__name__)
+# Mengatur template_folder ke direktori saat ini (.) agar langsung terbaca di Vercel
+app = Flask(__name__, template_folder='.')
 
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def home():
     prediction_text = None
     status_badge = None
     analysis_text = None
@@ -11,7 +12,7 @@ def index():
     if request.method == 'POST':
         try:
             work_hours = float(request.form['work_hours'])
-            # Rumus Regresi Linear Sederhana
+            # Rumus Regresi Linear Sederhana untuk prediksi burnout
             pred_val = (3.59 * work_hours) + 10.5
             score = round(float(pred_val), 2)
             
@@ -19,13 +20,13 @@ def index():
             
             if score < 40:
                 status_badge = "Rendah (Aman)"
-                analysis_text = "Jam kerja masih dalam batas wajar."
+                analysis_text = "Jam kerja masih dalam batas wajar. Pertahankan keseimbangan hidup dan kerja."
             elif score < 70:
                 status_badge = "Sedang (Waspada)"
-                analysis_text = "Tingkat stres mulai terasa, perbanyak istirahat."
+                analysis_text = "Tingkat stres mulai terasa. Pastikan ada waktu cukup untuk istirahat."
             else:
                 status_badge = "Tinggi (Bahaya Burnout)"
-                analysis_text = "Peringatan! Jam kerja terlalu tinggi, segera luangkan waktu relaksasi."
+                analysis_text = "Peringatan! Jam kerja terlalu tinggi. Segera ambil waktu cuti untuk memulihkan kesehatan."
                 
         except Exception as e:
             prediction_text = f"Error: {str(e)}"
