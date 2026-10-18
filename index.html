@@ -22,7 +22,7 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
         }
         h2 {
             color: #055b56;
@@ -37,13 +37,14 @@
             margin-bottom: 8px;
             font-weight: 600;
         }
-        input[type="number"] {
+        input[type="number"], select {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 10px;
             box-sizing: border-box;
             font-size: 16px;
+            background-color: #fff;
         }
         button {
             background-color: #055b56;
@@ -56,6 +57,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: background 0.3s;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #044743;
@@ -73,7 +75,7 @@
         }
         .badge {
             display: inline-block;
-            padding: 5px 12px;
+            padding: 6px 12px;
             border-radius: 8px;
             font-weight: bold;
             font-size: 14px;
@@ -86,12 +88,20 @@
     <div class="container">
         <h2>Prediksi Burnout Kesehatan Mental</h2>
         
-        <!-- Form dikosongkan action-nya agar langsung diproses di route '/' -->
         <form method="POST">
             <div class="form-group">
-                <label for="work_hours">Jam Kerja per Minggu (Work Hours):</label>
-                <input type="number" step="any" id="work_hours" name="work_hours" placeholder="Contoh: 45" required>
+                <label for="period">Pilih Periode Jam Kerja:</label>
+                <select name="period" id="period">
+                    <option value="minggu" {% if selected_period == 'minggu' %}selected{% endif %}>Per Minggu (Normal: 54 Jam)</option>
+                    <option value="bulan" {% if selected_period == 'bulan' %}selected{% endif %}>Per Bulan (Normal: 216 Jam)</option>
+                </select>
             </div>
+
+            <div class="form-group">
+                <label for="work_hours">Total Jam Kerja:</label>
+                <input type="number" step="any" id="work_hours" name="work_hours" value="{{ input_hours }}" placeholder="Masukkan total jam..." required>
+            </div>
+            
             <button type="submit">Hitung Prediksi</button>
         </form>
 
